@@ -6,8 +6,6 @@ import java.lang.reflect.InvocationTargetException;
 import dataModelInterfaces.IVariableTable;
 
 public class ExpressionHandlerFactory {
-
-	
 	
 	@SuppressWarnings("unchecked")
 	public static IExpressionHandler gettSyntaxAutomat(String expressionHandlerName,
