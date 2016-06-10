@@ -13,7 +13,6 @@ public class AutomatFactory {
 
 	@SuppressWarnings("unchecked")
 	public static ILexicalAutomat getLexAutomat(String lexAutomatName,String expression) {
-		ILexicalAutomat automat = null;
 
 		Class<ILexicalAutomat> clazz = null;
 
@@ -26,24 +25,19 @@ public class AutomatFactory {
 			throw new ExpressionException(e);
 		}
 
-		Constructor<?> ctr;
-
 		try {
-			ctr = clazz.getConstructor(String.class);
-			automat = (ILexicalAutomat) ctr.newInstance(expression);
+			Constructor<?> ctr = clazz.getConstructor(String.class);
+			return (ILexicalAutomat) ctr.newInstance(expression);
 		} catch (NoSuchMethodException | SecurityException
 				| InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e) {
 			throw new ExpressionException(e);
 		}
-
-		return automat;
 	}
 
 	@SuppressWarnings("unchecked")
 	public static IValidator getValidatorAutomat(String validatorName,ILexicalAutomat automat) {
 
-		IValidator validator = null;
 
 		Class<IValidator> clazz = null;
 
@@ -55,24 +49,19 @@ public class AutomatFactory {
 			throw new ExpressionException(e);
 		}
 
-		Constructor<?> ctr;
-
 		try {
-			ctr = clazz.getConstructor(ILexicalAutomat.class);
-			validator = (IValidator) ctr.newInstance(automat);
+			Constructor<?>	ctr = clazz.getConstructor(ILexicalAutomat.class);
+			return (IValidator) ctr.newInstance(automat);
 		} catch (NoSuchMethodException | SecurityException
 				| InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e) {
 			throw new ExpressionException(e);
 		}
 
-		return validator;
-
 	}
 
 	@SuppressWarnings("unchecked")
 	public static IPreparator getPreparatorAutomat(String preparatorName,ILexicalAutomat automat) {
-		IPreparator preparator = null;
 
 		Class<IPreparator> clazz = null;
 
@@ -84,23 +73,18 @@ public class AutomatFactory {
 			throw new ExpressionException(e);
 		}
 
-		Constructor<?> ctr;
-
 		try {
-			ctr = clazz.getConstructor(ILexicalAutomat.class);
-			preparator = (IPreparator) ctr.newInstance(automat);
+			Constructor<?> ctr = clazz.getConstructor(ILexicalAutomat.class);
+			return (IPreparator) ctr.newInstance(automat);
 		} catch (NoSuchMethodException | SecurityException
 				| InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e) {
 			throw new ExpressionException(e);
 		}
-
-		return preparator;
 	}
 
 	@SuppressWarnings("unchecked")
 	public static ISyntaxAutomat gettSyntaxAutomat(String syxAutomatName,ILexicalAutomat lexAutomat,IVariableTable table) {
-		ISyntaxAutomat automat = null;
 
 		Class<ISyntaxAutomat> clazz = null;
 
@@ -112,18 +96,15 @@ public class AutomatFactory {
 			throw new ExpressionException(e);
 		}
 
-		Constructor<?> ctr;
-
 		try {
-			ctr = clazz.getConstructor(ILexicalAutomat.class,IVariableTable.class);
-			automat = (ISyntaxAutomat) ctr.newInstance(lexAutomat,table);
+			Constructor<?> ctr = clazz.getConstructor(ILexicalAutomat.class,IVariableTable.class);
+			return (ISyntaxAutomat) ctr.newInstance(lexAutomat,table);
 		} catch (NoSuchMethodException | SecurityException
 				| InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e) {
 			throw new ExpressionException(e);
 		}
-
-		return automat;
+		
 	}
 
 }

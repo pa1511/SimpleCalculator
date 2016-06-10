@@ -10,7 +10,6 @@ public class ExpressionHandlerFactory {
 	@SuppressWarnings("unchecked")
 	public static IExpressionHandler gettSyntaxAutomat(String expressionHandlerName,
 			IVariableTable table) {
-		IExpressionHandler handler = null;
 
 		Class<IExpressionHandler> clazz = null;
 
@@ -23,18 +22,15 @@ public class ExpressionHandlerFactory {
 			throw new ExpressionException(e);
 		}
 
-		Constructor<?> ctr;
-
 		try {
-			ctr = clazz.getConstructor(IVariableTable.class);
-			handler = (IExpressionHandler) ctr.newInstance(table);
+			Constructor<?>	ctr = clazz.getConstructor(IVariableTable.class);
+			return (IExpressionHandler) ctr.newInstance(table);
 		} catch (NoSuchMethodException | SecurityException
 				| InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException e) {
 			throw new ExpressionException(e);
 		}
 
-		return handler;
 	}
 
 }
