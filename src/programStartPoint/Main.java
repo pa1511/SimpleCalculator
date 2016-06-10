@@ -2,17 +2,21 @@ package programStartPoint;
 
 import java.awt.EventQueue;
 import gui.SimpleTableCalculator;
-import javax.swing.JFrame;
 
-public class Main {
-	
+public final class Main {
+
+	/**
+	 * Instances of this class should never be created
+	 */
 	private Main() {
 	}
 
+	/**
+	 * Starts the simple calculator program
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater( () ->{
-				JFrame frame = new SimpleTableCalculator();
-				frame.setVisible(true);
+				new SimpleTableCalculator().setVisible(true);
 			});
 	}
 }
