@@ -17,13 +17,13 @@ public class Console extends JTextField implements ListSelectionListener{
 	private	AbstractCalculatorTableModel tableModel;
 	
 	public Console(JTable table,AbstractCalculatorTableModel tableModel) {
-		setEditable(false);
 		this.tableModel = tableModel;
 		this.table = table;
 		
 		table.getSelectionModel().addListSelectionListener(this);
 		table.getColumnModel().getSelectionModel().addListSelectionListener(this);
 		
+		setEditable(false);
 		setFont(new Font(getFont().getName(), Font.PLAIN, 12));
 	}
 	

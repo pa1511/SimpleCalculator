@@ -11,16 +11,11 @@ import dataModelInterfaces.AbstractCalculatorTableModel;
 
 public class FunctionLabel extends JLabel implements ListSelectionListener{
 
-	private static final long serialVersionUID = 1L;
-	
-	private JTable table;
-
-	private String defaultText = "f(x)";
+	private final JTable table;
+	private static final String defaultText = "f(x)";
 
 	public FunctionLabel(JTable table, AbstractCalculatorTableModel tableModel) {
-		
-		setEnabled(false);
-		
+				
 		this.table = table;
 		
 		table.getSelectionModel().addListSelectionListener(this);
@@ -28,6 +23,7 @@ public class FunctionLabel extends JLabel implements ListSelectionListener{
 			
 		setText(defaultText);
 		setFont(new Font(getFont().getName(), Font.ITALIC, 12));
+		setEnabled(false);
 	}
 
 	@Override

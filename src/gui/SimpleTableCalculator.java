@@ -29,9 +29,7 @@ import analysis.ExpressionException;
 import dataModelInterfaces.AbstractCalculatorTableModel;
 import dataModels.TableModel;
 
-public class SimpleTableCalculator extends JFrame{
-
-	private static final long serialVersionUID = 1L;
+public final class SimpleTableCalculator extends JFrame{
 
 	public SimpleTableCalculator() {
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -73,8 +71,6 @@ public class SimpleTableCalculator extends JFrame{
 		tableModel = new TableModel();
 		table = new JTable(tableModel) {
 
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public Component prepareRenderer(TableCellRenderer renderer,
 					int row, int col) {
@@ -104,37 +100,18 @@ public class SimpleTableCalculator extends JFrame{
 		
 		table.setPreferredSize(table.getPreferredSize());
 		
-		JScrollPane scrollPane = new JScrollPane(table);
-		
-		add(scrollPane, BorderLayout.CENTER);
+		add(new JScrollPane(table), BorderLayout.CENTER);
 
 	}
 
 	private void initLowerPanel() {
-		
-		//execute button initialization
-		FlowLayout buttonHolderLayout = new FlowLayout();
-		buttonHolderLayout.setAlignment(FlowLayout.RIGHT);
-		JPanel buttonHolder = new JPanel(buttonHolderLayout);
-		execute = new JButton(new CalculationAction());
-		buttonHolder.add(execute);
-		
-		//lower panel initialization
-		JPanel lowerPanel = new JPanel();
-		lowerPanel.setLayout(new BorderLayout());
-		
+				
 		label = new FunctionLabel(table,tableModel);
-		lowerPanel.add(label,BorderLayout.PAGE_START);
 		
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(2, 1));
-
 		console = new Console(table, tableModel);
-		
 		console.getInputMap()
 		.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "Enter");
 		console.getActionMap().put("Enter", new AbstractAction() {
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -143,20 +120,28 @@ public class SimpleTableCalculator extends JFrame{
 		});
 		value = new ValueLabel(table, tableModel);
 
-		panel.add(console);
-		panel.add(value);
-		
-		lowerPanel.add(panel,BorderLayout.CENTER);
+		JPanel consoleHolder = new JPanel(new GridLayout(2, 1));
+		consoleHolder.add(console);
+		consoleHolder.add(value);
+
+		//execute button initialization
+		execute = new JButton(new CalculationAction());
+		JPanel buttonHolder = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		buttonHolder.add(execute);
+
+		//lower panel initialization
+		JPanel lowerPanel = new JPanel();
+		lowerPanel.setLayout(new BorderLayout());
+		lowerPanel.add(label,BorderLayout.PAGE_START);
+		lowerPanel.add(consoleHolder,BorderLayout.CENTER);
 		lowerPanel.add(buttonHolder,BorderLayout.PAGE_END);
 		
 		//adding lowerPanel to the main frame
 		add(lowerPanel,BorderLayout.PAGE_END);
 	}
 	
-	private class CalculationAction extends AbstractAction implements ListSelectionListener{
+	private final class CalculationAction extends AbstractAction implements ListSelectionListener{
 		
-		private static final long serialVersionUID = 1L;
-
 		public CalculationAction() {
 			super("Calculate");
 			table.getSelectionModel().addListSelectionListener(this);
@@ -171,7 +156,6 @@ public class SimpleTableCalculator extends JFrame{
 			}
 			catch(ExpressionException | IllegalArgumentException ex){
 				JOptionPane.showMessageDialog(SimpleTableCalculator.this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-//				ex.printStackTrace();
 			}
 			
 			repaint();
