@@ -35,7 +35,7 @@ The calculator supports the following functions:
   
 The following images show the calculator GUI.
 ![Example 1](images/example1.png)
-![Example 2](images/example2.png)
+![Example 2](images/example3.png)
 
 
 
